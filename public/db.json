@@ -1,0 +1,87 @@
+{
+  "students": [
+    {
+      "id": "1",
+      "name": "Aminul Islam",
+      "email": "aminul@test.com",
+      "year": 2,
+      "courses": [
+        1,
+        2,
+        "1"
+      ],
+      "gpa": 3.8
+    },
+    {
+      "id": "2",
+      "name": "Sarah Khan",
+      "email": "sarah@test.com",
+      "year": 3,
+      "courses": [
+        1,
+        "1"
+      ],
+      "gpa": 3.9
+    }
+  ],
+  "courses": [
+    {
+      "id": "1",
+      "name": "Test Course1",
+      "faculty": [
+        1
+      ],
+      "enrollment": 15
+    }
+  ],
+  "faculty": [
+    {
+      "id": "1",
+      "name": "Dr. Rahman",
+      "email": "rahman@test.com",
+      "courses": [
+        1
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Dr. Karim",
+      "email": "karim@test.com",
+      "courses": [
+        2
+      ]
+    }
+  ],
+  "grades": [
+    {
+      "studentId": 1,
+      "courseId": 1,
+      "grade": 3,
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "studentId": 1,
+      "courseId": 2,
+      "grade": 85
+    },
+    {
+      "id": 3,
+      "studentId": 2,
+      "courseId": 1,
+      "grade": 2
+    },
+    {
+      "id": 4,
+      "studentId": 1,
+      "courseId": "1",
+      "grade": 3
+    },
+    {
+      "id": 4,
+      "studentId": 2,
+      "courseId": "1",
+      "grade": 3
+    }
+  ]
+}
