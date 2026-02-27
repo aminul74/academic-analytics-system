@@ -8,7 +8,7 @@ export interface Student {
 }
 
 export interface Course {
-  id: number;
+  id: string;
   name: string;
   faculty: number[];
   enrollment: number;

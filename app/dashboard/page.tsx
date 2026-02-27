@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import EnrollmentBarChart from "../../components/charts/EnrollmentBarChart";
-import api from "../../lib/api";
+import EnrollmentBarChart from "@/components/charts/EnrollmentBarChart";
+import api from "@/lib/api";
 import TopStudentsTable from "@/components/tables/TopStudentsTable";
 
 export default function DashboardPage() {
@@ -10,20 +10,22 @@ export default function DashboardPage() {
   const [courses, setCourses] = useState<any[]>([]);
   const [faculty, setFaculty] = useState<any[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const [studentsRes, coursesRes, facultyRes] = await Promise.all([
-        api.get("/students"),
-        api.get("/courses"),
-        api.get("/faculty"),
-      ]);
+  const fetchDashboardData = async () => {
+    try {
+      const studentsRes = await api.get("/students");
+      const coursesRes = await api.get("/courses");
+      const facultyRes = await api.get("/faculty");
 
       setStudents(studentsRes);
       setCourses(coursesRes);
       setFaculty(facultyRes);
+    } catch (error) {
+      console.error("Failed to fetch dashboard data:", error);
     }
+  };
 
-    fetchData();
+  useEffect(() => {
+    fetchDashboardData();
   }, []);
 
   console.log("Courses ::", courses);

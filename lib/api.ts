@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3002";
+const BASE_URL = process.env.MOCK_SERVER_URL || "http://localhost:3002";
 
 const api = {
   async get(endpoint: string) {

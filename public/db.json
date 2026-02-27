@@ -27,11 +27,19 @@
   "courses": [
     {
       "id": "1",
-      "name": "Test Course1",
+      "name": "Engineering Mathematics",
       "faculty": [
         1
       ],
-      "enrollment": 15
+      "enrollment": 150
+    },
+    {
+      "id": "2",
+      "name": "Data Structures",
+      "faculty": [
+        1
+      ],
+      "enrollment": 700
     }
   ],
   "faculty": [
