@@ -86,7 +86,7 @@ export default function SearchFilter({
         {(searchTerm || Object.keys(activeFilters).length > 0) && (
           <button
             onClick={handleReset}
-            className="self-start px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+            className="cursor-pointer self-start px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
           >
             Reset Filters
           </button>

@@ -30,7 +30,7 @@ export default function RootLayout({
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded px-3 py-2 ${
+                  className={`cursor-pointer rounded px-3 py-2 ${
                     active ? "bg-blue-600" : "hover:bg-gray-700"
                   }`}
                 >

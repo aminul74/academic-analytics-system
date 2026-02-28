@@ -9,9 +9,9 @@ export default function TopStudentsTable({ students }: Props) {
     return <div className="text-gray-500">No students available</div>;
 
   const sortedStudents = [...students].sort((studentA, studentB) => {
-    const gpaA = studentA.gpa ?? 0;
-    const gpaB = studentB.gpa ?? 0;
-    return gpaB - gpaA;
+    const cgpaA = studentA.cgpa ?? 0;
+    const cgpaB = studentB.cgpa ?? 0;
+    return cgpaB - cgpaA;
   });
 
   const topStudents = sortedStudents.slice(0, 5);
@@ -22,7 +22,7 @@ export default function TopStudentsTable({ students }: Props) {
         <tr>
           <th className="px-3 py-2 text-left">Name</th>
           <th className="px-3 py-2 text-left">Year</th>
-          <th className="px-3 py-2 text-left">GPA</th>
+          <th className="px-3 py-2 text-left">CGPA</th>
         </tr>
       </thead>
       <tbody>
@@ -31,7 +31,7 @@ export default function TopStudentsTable({ students }: Props) {
             <td className="px-3 py-2">{student.name}</td>
             <td className="px-3 py-2">{student.year}</td>
             <td className="px-3 py-2">
-              {student.gpa !== undefined ? student.gpa.toFixed(2) : "-"}
+              {student.cgpa !== undefined ? student.cgpa.toFixed(2) : "-"}
             </td>
           </tr>
         ))}

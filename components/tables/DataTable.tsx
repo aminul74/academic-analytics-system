@@ -149,7 +149,7 @@ export default function DataTable({
           <button
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
             disabled={currentPage === 1}
-            className="px-3 py-1 rounded border text-sm disabled:opacity-50 hover:bg-gray-100"
+            className="cursor-pointer px-3 py-1 rounded border text-sm disabled:opacity-50 hover:bg-gray-100"
           >
             Previous
           </button>
@@ -160,7 +160,7 @@ export default function DataTable({
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page)}
-                  className={`px-3 py-1 rounded text-sm ${
+                  className={`cursor-pointer px-3 py-1 rounded text-sm ${
                     currentPage === page
                       ? "bg-blue-600 text-white"
                       : "border hover:bg-gray-100"
@@ -174,7 +174,7 @@ export default function DataTable({
           <button
             onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="px-3 py-1 rounded border text-sm disabled:opacity-50 hover:bg-gray-100"
+            className="cursor-pointer px-3 py-1 rounded border text-sm disabled:opacity-50 hover:bg-gray-100"
           >
             Next
           </button>

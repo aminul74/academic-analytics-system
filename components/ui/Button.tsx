@@ -8,7 +8,7 @@ export default function Button({ children, ...rest }: Props) {
   return (
     <button
       {...rest}
-      className={`rounded bg-sky-600 px-3 py-2 text-white ${rest.className ?? ""}`}
+      className={`cursor-pointer rounded bg-sky-600 px-3 py-2 text-white ${rest.className ?? ""}`}
     >
       {children}
     </button>

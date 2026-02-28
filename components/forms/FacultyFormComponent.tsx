@@ -1,58 +1,52 @@
 "use client";
 
-import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Student, Course } from "@/types/index";
+import { Faculty, Course } from "@/types/index";
 import { useState, useEffect } from "react";
 import api from "@/lib/api";
 
-interface StudentFormComponentProps {
-  initialData?: Student;
-  onSubmit: (data: Student) => Promise<void>;
+interface FacultyFormComponentProps {
+  initialData?: Faculty;
+  onSubmit: (data: Faculty) => Promise<void>;
   onCancel: () => void;
 }
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  year: Yup.number()
-    .min(1, "Year must be 1 or higher")
-    .max(4, "Year must be 4 or lower")
-    .required("Year is required"),
   courses: Yup.array(),
 });
 
-export default function StudentFormComponent({
+export default function FacultyFormComponent({
   initialData,
   onSubmit,
   onCancel,
-}: StudentFormComponentProps) {
+}: FacultyFormComponentProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [courses, setCourses] = useState<Course[]>([]);
 
-  const fetchCourses = async () => {
-    try {
-      const data = await api.get("/courses");
-      setCourses(data);
-    } catch (err) {
-      console.error("Failed to fetch courses:", err);
-    }
-  };
-
   useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const data = await api.get("/courses");
+        setCourses(data);
+      } catch (err) {
+        console.error("Failed to fetch courses:", err);
+      }
+    };
     fetchCourses();
   }, []);
 
-  const initialValues: Student = initialData || {
+  const initialValues: Faculty = initialData || {
     id: "",
     name: "",
     email: "",
-    year: 1,
     courses: [],
   };
 
-  const handleSubmit = async (values: Student) => {
+  const handleSubmit = async (values: Faculty) => {
     setLoading(true);
     setError("");
     try {
@@ -77,7 +71,7 @@ export default function StudentFormComponent({
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ values, isSubmitting, setFieldValue }) => (
+        {({ values, setFieldValue, isSubmitting }) => (
           <Form className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -112,26 +106,8 @@ export default function StudentFormComponent({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Year
-              </label>
-              <Field
-                name="year"
-                type="number"
-                min="1"
-                max="4"
-                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <ErrorMessage name="year">
-                {(msg) => (
-                  <div className="text-red-500 text-sm mt-1">{msg}</div>
-                )}
-              </ErrorMessage>
-            </div>
-
-            <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Enrolled Courses
+                Assigned Courses
               </label>
               <div className="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-3">
                 {courses.map((course) => (
@@ -143,17 +119,10 @@ export default function StudentFormComponent({
                       type="checkbox"
                       checked={values.courses.includes(course.id)}
                       onChange={(e) => {
-                        if (e.target.checked) {
-                          setFieldValue("courses", [
-                            ...values.courses,
-                            course.id,
-                          ]);
-                        } else {
-                          setFieldValue(
-                            "courses",
-                            values.courses.filter((id) => id !== course.id),
-                          );
-                        }
+                        const updated = e.target.checked
+                          ? [...values.courses, course.id]
+                          : values.courses.filter((id) => id !== course.id);
+                        setFieldValue("courses", updated);
                       }}
                       className="rounded"
                     />
@@ -177,7 +146,7 @@ export default function StudentFormComponent({
                 className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
                 disabled={isSubmitting || loading}
               >
-                {loading ? "Saving..." : "Save Student"}
+                {loading ? "Saving..." : "Save Faculty"}
               </button>
             </div>
           </Form>

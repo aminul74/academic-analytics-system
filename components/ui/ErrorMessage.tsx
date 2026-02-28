@@ -15,7 +15,7 @@ export default function ErrorMessage({
       {onDismiss && (
         <button
           onClick={onDismiss}
-          className="text-red-600 hover:text-red-800 font-semibold"
+          className="cursor-pointer text-red-600 hover:text-red-800 font-semibold"
         >
           ✕
         </button>

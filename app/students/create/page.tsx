@@ -18,7 +18,7 @@ export default function CreateStudentPage() {
         email: data.email,
         year: Number(data.year),
         courses: data.courses.map((c) => String(c)),
-        gpa: data.gpa ? Number(data.gpa) : undefined,
+        cgpa: data.cgpa ? Number(data.cgpa) : undefined,
       };
       const result = await api.post("/students", newStudent);
       router.push(`/students/${result.id}`);

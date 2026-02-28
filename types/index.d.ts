@@ -4,7 +4,7 @@ export interface Student {
   email: string;
   year: number;
   courses: string[];
-  gpa?: number;
+  cgpa?: number;
 }
 
 export interface Course {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Course, Student, Grade } from "@/types/index";
 import api from "@/lib/api";
+import { getLetterGrade } from "@/lib/utils";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
@@ -32,8 +33,10 @@ export default function CourseDetailPage() {
       const studentsData = await api.get("/students");
       setStudents(studentsData);
 
-      const gradesData = await api.get(`/grades?courseId=${courseId}`);
-      setGrades(gradesData);
+      const gradesData = await api.get("/grades");
+      setGrades(
+        gradesData.filter((g: Grade) => String(g.courseId) === courseId),
+      );
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to fetch course data",
@@ -75,19 +78,19 @@ export default function CourseDetailPage() {
         <div className="flex gap-2">
           <Link
             href={`/courses/${id}/edit`}
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+            className="cursor-pointer px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
           >
             Edit
           </Link>
           <button
             onClick={() => setDeleteConfirm(true)}
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+            className="cursor-pointer px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
           >
             Delete
           </button>
           <Link
             href="/courses"
-            className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-50"
+            className="cursor-pointer px-4 py-2 border rounded text-gray-700 hover:bg-gray-50"
           >
             Back
           </Link>
@@ -154,7 +157,8 @@ export default function CourseDetailPage() {
           <thead className="bg-gray-50 border-b">
             <tr>
               <th className="px-6 py-3 text-sm font-semibold">Student</th>
-              <th className="px-6 py-3 text-sm font-semibold">Grade</th>
+              <th className="px-6 py-3 text-sm font-semibold">Score</th>
+              <th className="px-6 py-3 text-sm font-semibold">Letter</th>
             </tr>
           </thead>
           <tbody>
@@ -166,13 +170,16 @@ export default function CourseDetailPage() {
               </tr>
             ) : (
               grades.map((g) => {
-                const student = students.find((s) => s.id === g.studentId);
+                const student = students.find(
+                  (s) => String(s.id) === String(g.studentId),
+                );
                 return (
                   <tr key={g.id} className="border-t hover:bg-gray-50">
                     <td className="px-6 py-4">
                       {student?.name || `Student ${g.studentId}`}
                     </td>
                     <td className="px-6 py-4">{g.grade}</td>
+                    <td className="px-6 py-4">{getLetterGrade(g.grade)}</td>
                   </tr>
                 );
               })

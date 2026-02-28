@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Student, Course, Grade } from "@/types/index";
 import api from "@/lib/api";
+import { getLetterGrade, calculateCGPA } from "@/lib/utils";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
@@ -12,7 +13,7 @@ import ConfirmDialog from "@/components/ui/ConfirmDialog";
 export default function StudentDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const id = String(parseInt(params.id as string));
+  const id = String(params.id);
 
   const [student, setStudent] = useState<Student | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
@@ -32,11 +33,11 @@ export default function StudentDetailPage() {
       const [studentData, coursesData, gradesData] = await Promise.all([
         api.get(`/students/${id}`),
         api.get("/courses"),
-        api.get(`/grades?studentId=${id}`),
+        api.get("/grades"),
       ]);
       setStudent(studentData);
       setCourses(coursesData);
-      setGrades(gradesData);
+      setGrades(gradesData.filter((g: Grade) => String(g.studentId) === id));
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to fetch student data",
@@ -57,7 +58,7 @@ export default function StudentDetailPage() {
 
   if (loading) return <LoadingSpinner />;
   if (!student) return <ErrorMessage message="Student not found" />;
-  const safeGpa = student.gpa ?? 0;
+  const safeCgpa = calculateCGPA(grades);
 
   const enrolledCourses = courses.filter((c) => student.courses.includes(c.id));
 
@@ -75,19 +76,19 @@ export default function StudentDetailPage() {
         <div className="flex gap-2">
           <Link
             href={`/students/${id}/edit`}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            className="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
           >
             Edit
           </Link>
           <button
             onClick={() => setDeleteConfirm(true)}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+            className="cursor-pointer px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
           >
             Delete
           </button>
           <Link
             href="/students"
-            className="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50"
+            className="cursor-pointer px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50"
           >
             Back
           </Link>
@@ -102,9 +103,9 @@ export default function StudentDetailPage() {
           </div>
         </div>
         <div className="bg-white rounded-lg shadow p-4">
-          <div className="text-gray-600 text-sm">GPA</div>
+          <div className="text-gray-600 text-sm">CGPA</div>
           <div className="text-2xl font-semibold text-gray-900">
-            {safeGpa.toFixed(2)}
+            {safeCgpa.toFixed(2)}
           </div>
         </div>
         <div className="bg-white rounded-lg shadow p-4">
@@ -166,7 +167,10 @@ export default function StudentDetailPage() {
                 Course
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
-                Grade
+                Score
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                Letter
               </th>
             </tr>
           </thead>
@@ -179,7 +183,9 @@ export default function StudentDetailPage() {
               </tr>
             ) : (
               grades.map((grade) => {
-                const course = courses.find((c) => c.id === grade.courseId);
+                const course = courses.find(
+                  (c) => String(c.id) === String(grade.courseId),
+                );
                 return (
                   <tr key={grade.id} className="border-t hover:bg-gray-50">
                     <td className="px-6 py-4 text-sm text-gray-900">
@@ -187,6 +193,9 @@ export default function StudentDetailPage() {
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
                       {grade.grade}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-900">
+                      {getLetterGrade(grade.grade)}
                     </td>
                   </tr>
                 );

@@ -74,7 +74,7 @@ export default function StudentsPage() {
     { key: "name", label: "Name", sortable: true },
     { key: "email", label: "Email", sortable: true },
     { key: "year", label: "Year", sortable: true },
-    { key: "gpa", label: "GPA", sortable: true },
+    { key: "cgpa", label: "CGPA", sortable: true },
     {
       key: "courses",
       label: "Courses",
@@ -98,7 +98,7 @@ export default function StudentsPage() {
       </Link>
       <button
         onClick={() => setDeleteConfirm({ isOpen: true, studentId: row.id })}
-        className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+        className="cursor-pointer px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
       >
         Delete
       </button>
@@ -111,7 +111,7 @@ export default function StudentsPage() {
         <h2 className="text-2xl font-semibold text-gray-900">Students</h2>
         <Link
           href="/students/create"
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
         >
           Create New Student
         </Link>
