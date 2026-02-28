@@ -1,12 +1,11 @@
-import { Student } from "../../types";
-
+import { Student } from "@/types";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 interface Props {
   students: Student[];
 }
 
 export default function TopStudentsTable({ students }: Props) {
-  if (!students?.length)
-    return <div className="text-gray-500">No students available</div>;
+  if (!students?.length) return <LoadingSpinner />;
 
   const sortedStudents = [...students].sort((studentA, studentB) => {
     const cgpaA = studentA.cgpa ?? 0;

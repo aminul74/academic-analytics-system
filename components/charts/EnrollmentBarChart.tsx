@@ -1,21 +1,20 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { Course } from "../../types";
-
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+import Chart from "react-apexcharts";
+import { Course } from "@/types";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 interface Props {
   courses: Course[];
 }
 
 export default function EnrollmentBarChart({ courses }: Props) {
-  if (!courses || courses.length === 0) {
-    return <div className="text-gray-500">No courses available</div>;
+  if (!courses.length) {
+    return <LoadingSpinner />;
   }
 
   const options = {
-    chart: { id: "bar-chart" },
+    chart: { id: "enrollment-bar-chart" },
     xaxis: { categories: courses.map((c) => c.name) },
   };
 
@@ -23,5 +22,5 @@ export default function EnrollmentBarChart({ courses }: Props) {
     { name: "Enrollment", data: courses.map((c) => c.enrollment) },
   ];
 
-  return <Chart options={options} series={series} type="bar" height={300} />;
+  return <Chart type="bar" height={300} options={options} series={series} />;
 }

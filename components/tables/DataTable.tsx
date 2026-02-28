@@ -109,9 +109,9 @@ export default function DataTable({
               </td>
             </tr>
           ) : (
-            paginatedData.map((row, idx) => (
+            paginatedData.map((row, index) => (
               <tr
-                key={idx}
+                key={index}
                 className="border-t hover:bg-gray-50 cursor-pointer"
                 onClick={() => onRowClick?.(row)}
               >
@@ -147,7 +147,7 @@ export default function DataTable({
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+            onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
             disabled={currentPage === 1}
             className="cursor-pointer px-3 py-1 rounded border text-sm disabled:opacity-50 hover:bg-gray-100"
           >
@@ -172,7 +172,9 @@ export default function DataTable({
             })}
           </div>
           <button
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+            onClick={() =>
+              setCurrentPage((page) => Math.min(page + 1, totalPages))
+            }
             disabled={currentPage === totalPages}
             className="cursor-pointer px-3 py-1 rounded border text-sm disabled:opacity-50 hover:bg-gray-100"
           >

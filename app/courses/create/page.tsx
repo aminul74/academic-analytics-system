@@ -17,7 +17,7 @@ export default function CreateCoursePage() {
         id: newId,
         name: data.name,
         enrollment: Number(data.enrollment),
-        faculty: data.faculty.map((f) => String(f)),
+        faculty: data.faculty.map((facultyMember) => String(facultyMember)),
       };
       const result = await api.post("/courses", newCourse);
       const idToNavigate = result.id || newId;

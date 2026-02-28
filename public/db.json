@@ -3,18 +3,19 @@
     {
       "id": "1",
       "name": "Aminul Islam",
-      "email": "aminul@test.com",
+      "email": "aminul@university.edu",
       "year": 2,
       "courses": [
         "3",
-        "1"
+        "1",
+        "5"
       ],
       "cgpa": 3.8
     },
     {
       "id": "2",
-      "name": "Sarah Khan",
-      "email": "sarah@test.com",
+      "name": "Sarah Ahmed Khan",
+      "email": "sarah.khan@university.edu",
       "year": 3,
       "courses": [
         "1"
@@ -23,8 +24,8 @@
     },
     {
       "id": "3",
-      "name": "Fatima",
-      "email": "fatima@example.com",
+      "name": "Fardin Ahmed",
+      "email": "fardin.ahmed@university.edu",
       "year": 1,
       "courses": [
         "1",
@@ -36,11 +37,21 @@
     },
     {
       "id": "4",
-      "name": "Ritu Fatema",
-      "email": "ritu@example.com",
+      "name": "Mohona Islam",
+      "email": "mohona.islam@university.edu",
       "year": 1,
       "courses": [
         "3"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Tomal Sarker Das",
+      "email": "tomal.das@university.edu",
+      "year": 2,
+      "courses": [
+        "2",
+        "1"
       ]
     }
   ],
@@ -55,34 +66,34 @@
     },
     {
       "id": "2",
-      "name": "Data Structures",
+      "name": "Theory of Computing",
       "faculty": [
         "1"
       ],
       "enrollment": 700
     },
     {
-      "id": "3",
-      "name": "Biology",
-      "faculty": [
-        "2"
-      ],
-      "enrollment": 50
-    },
-    {
       "id": "4",
-      "name": "Algorithm",
+      "name": "Advanced Algorithms",
       "enrollment": 20,
       "faculty": [
         "3"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Engineering Ethics",
+      "enrollment": 50,
+      "faculty": [
+        "4"
       ]
     }
   ],
   "faculty": [
     {
       "id": "1",
-      "name": "Dr. Rahman",
-      "email": "rahman@test.com",
+      "name": "Dr. Muhammad Rahman",
+      "email": "m.rahman@university.edu",
       "courses": [
         "1",
         "2"
@@ -90,19 +101,27 @@
     },
     {
       "id": "2",
-      "name": "Dr. Karim",
-      "email": "karim@test.com",
+      "name": "Dr. Abdul Karim Ahmed",
+      "email": "a.karim@university.edu",
       "courses": [
         "3"
       ]
     },
     {
       "id": "3",
-      "name": "Sadeq Haque",
-      "email": "sadeq@gmail.com",
+      "name": "Dr. Sadeq Haque",
+      "email": "s.haque@university.edu",
       "courses": [
         "1",
         "2"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Dr. Anower Pervez Khan",
+      "email": "a.pervez@university.edu",
+      "courses": [
+        "5"
       ]
     }
   ],

@@ -45,15 +45,15 @@ export default function CoursesPage() {
     fetchData();
   }, []);
 
-  const filteredCourses = courses.filter((c) =>
-    c.name.toLowerCase().includes(search.toLowerCase()),
+  const filteredCourses = courses.filter((course) =>
+    course.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleDelete = async () => {
     if (!deletingId) return;
     try {
       await api.delete(`/courses/${deletingId}`);
-      setCourses((prev) => prev.filter((c) => c.id !== deletingId));
+      setCourses((prev) => prev.filter((course) => course.id !== deletingId));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to delete course");
     } finally {

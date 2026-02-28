@@ -130,18 +130,18 @@ export default function CourseDetailPage() {
                 </td>
               </tr>
             ) : (
-              enrolledStudents.map((s) => (
-                <tr key={s.id} className="border-t hover:bg-gray-50">
+              enrolledStudents.map((student) => (
+                <tr key={student.id} className="border-t hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <Link
-                      href={`/students/${s.id}`}
+                      href={`/students/${student.id}`}
                       className="text-blue-600 hover:underline"
                     >
-                      {s.name}
+                      {student.name}
                     </Link>
                   </td>
-                  <td className="px-6 py-4">{s.email}</td>
-                  <td className="px-6 py-4">{s.year}</td>
+                  <td className="px-6 py-4">{student.email}</td>
+                  <td className="px-6 py-4">{student.year}</td>
                 </tr>
               ))
             )}
@@ -169,17 +169,17 @@ export default function CourseDetailPage() {
                 </td>
               </tr>
             ) : (
-              grades.map((g) => {
+              grades.map((grade) => {
                 const student = students.find(
-                  (s) => String(s.id) === String(g.studentId),
+                  (student) => String(student.id) === String(grade.studentId),
                 );
                 return (
-                  <tr key={g.id} className="border-t hover:bg-gray-50">
+                  <tr key={grade.id} className="border-t hover:bg-gray-50">
                     <td className="px-6 py-4">
-                      {student?.name || `Student ${g.studentId}`}
+                      {student?.name || `Student ${grade.studentId}`}
                     </td>
-                    <td className="px-6 py-4">{g.grade}</td>
-                    <td className="px-6 py-4">{getLetterGrade(g.grade)}</td>
+                    <td className="px-6 py-4">{grade.grade}</td>
+                    <td className="px-6 py-4">{getLetterGrade(grade.grade)}</td>
                   </tr>
                 );
               })

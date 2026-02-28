@@ -56,7 +56,9 @@ export default function FacultyDetailPage() {
   if (error) return <ErrorMessage message={error} />;
   if (!faculty) return <ErrorMessage message="Faculty not found" />;
 
-  const assignedCourses = courses.filter((c) => faculty.courses.includes(c.id));
+  const assignedCourses = courses.filter((course) =>
+    faculty.courses.includes(course.id),
+  );
 
   return (
     <section className="space-y-6">

@@ -36,19 +36,23 @@ function StudentCheckboxList({
   onChange: (ids: string[]) => void;
 }) {
   const toggle = (id: string, checked: boolean) =>
-    onChange(checked ? [...selected, id] : selected.filter((s) => s !== id));
+    onChange(
+      checked
+        ? [...selected, id]
+        : selected.filter((student) => student !== id),
+    );
 
   return (
     <div className="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-3">
-      {students.map((s) => (
-        <label key={s.id} className="flex items-center gap-2">
+      {students.map((student) => (
+        <label key={student.id} className="flex items-center gap-2">
           <input
             type="checkbox"
             className="rounded"
-            checked={selected.includes(s.id)}
-            onChange={(e) => toggle(s.id, e.target.checked)}
+            checked={selected.includes(student.id)}
+            onChange={(e) => toggle(student.id, e.target.checked)}
           />
-          <span>{s.name}</span>
+          <span>{student.name}</span>
         </label>
       ))}
     </div>
@@ -67,9 +71,9 @@ function CourseSelect({ courses }: { courses: Course[] }) {
         className="w-full px-3 py-2 border rounded-lg"
       >
         <option value="">Select a course</option>
-        {courses.map((c) => (
-          <option key={c.id} value={c.id}>
-            {c.name}
+        {courses.map((course) => (
+          <option key={course.id} value={course.id}>
+            {course.name}
           </option>
         ))}
       </Field>
@@ -88,7 +92,9 @@ export default function BulkOperations({
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const assignedCourses = courses.filter((c) => faculty.courses.includes(c.id));
+  const assignedCourses = courses.filter((course) =>
+    faculty.courses.includes(course.id),
+  );
 
   const withLoading = async (fn: () => Promise<void>) => {
     setLoading(true);
@@ -132,25 +138,29 @@ export default function BulkOperations({
   ) => {
     await withLoading(async () => {
       const grades = await api.get("/grades");
-      const maxId = Math.max(...grades.map((g: Grade) => Number(g.id)), 0);
+      const maxId = Math.max(
+        ...grades.map((grade: Grade) => Number(grade.id)),
+        0,
+      );
       let newIdCounter = maxId;
 
       const updates = gradeData
-        .filter((g) => g.grade > 0)
-        .map((g) => {
+        .filter((grade) => grade.grade > 0)
+        .map((grade) => {
           const existing = grades.find(
-            (gr: Grade) =>
-              gr.studentId === g.studentId && gr.courseId === courseId,
+            (gradeRecord: Grade) =>
+              gradeRecord.studentId === grade.studentId &&
+              gradeRecord.courseId === courseId,
           );
           if (existing) {
-            existing.grade = g.grade;
+            existing.grade = grade.grade;
             return api.put(`/grades/${existing.id}`, existing);
           }
           return api.post("/grades", {
             id: String(++newIdCounter),
-            studentId: g.studentId,
+            studentId: grade.studentId,
             courseId,
-            grade: g.grade,
+            grade: grade.grade,
           });
         });
 
@@ -173,8 +183,12 @@ export default function BulkOperations({
     await withLoading(async () => {
       await Promise.all(
         selectedStudents.map((id) => {
-          const student = students.find((s) => s.id === id)!;
-          student.courses = student.courses.filter((c) => c !== courseId);
+          const student = students.find(
+            (studentRecord) => studentRecord.id === id,
+          )!;
+          student.courses = student.courses.filter(
+            (enrolledCourseId) => enrolledCourseId !== courseId,
+          );
           return api.put(`/students/${id}`, student);
         }),
       );
@@ -267,13 +281,15 @@ export default function BulkOperations({
                     </label>
                     <div className="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-3">
                       {students
-                        .filter((s) => s.courses.includes(values.courseId))
-                        .map((s) => (
+                        .filter((student) =>
+                          student.courses.includes(values.courseId),
+                        )
+                        .map((student) => (
                           <div
-                            key={s.id}
+                            key={student.id}
                             className="flex items-center justify-between gap-2"
                           >
-                            <span>{s.name}</span>
+                            <span>{student.name}</span>
                             <input
                               type="number"
                               min="0"
@@ -283,7 +299,7 @@ export default function BulkOperations({
                               onChange={(e) =>
                                 setFieldValue("grades", {
                                   ...values.grades,
-                                  [s.id]: parseFloat(e.target.value) || 0,
+                                  [student.id]: parseFloat(e.target.value) || 0,
                                 })
                               }
                             />

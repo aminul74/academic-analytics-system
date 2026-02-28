@@ -62,8 +62,10 @@ export default function StudentsPage() {
   const handleDelete = async (id: string) => {
     try {
       await api.delete(`/students/${id}`);
-      setStudents(students.filter((s) => s.id !== id));
-      setFilteredStudents(filteredStudents.filter((s) => s.id !== id));
+      setStudents(students.filter((student) => student.id !== id));
+      setFilteredStudents(
+        filteredStudents.filter((student) => student.id !== id),
+      );
       setDeleteConfirm({ isOpen: false, studentId: "" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to delete student");
@@ -113,7 +115,7 @@ export default function StudentsPage() {
           href="/students/create"
           className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
         >
-          Create New Student
+          Add Student
         </Link>
       </div>
 

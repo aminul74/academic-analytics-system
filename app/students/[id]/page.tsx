@@ -60,7 +60,9 @@ export default function StudentDetailPage() {
   if (!student) return <ErrorMessage message="Student not found" />;
   const safeCgpa = calculateCGPA(grades);
 
-  const enrolledCourses = courses.filter((c) => student.courses.includes(c.id));
+  const enrolledCourses = courses.filter((course) =>
+    student.courses.includes(course.id),
+  );
 
   return (
     <section className="space-y-6">

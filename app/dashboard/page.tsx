@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import EnrollmentBarChart from "@/components/charts/EnrollmentBarChart";
 import api from "@/lib/api";
 import TopStudentsTable from "@/components/tables/TopStudentsTable";
+import { exportToCSV } from "@/lib/exportUtils";
 
 export default function DashboardPage() {
   const [students, setStudents] = useState<any[]>([]);
@@ -30,7 +31,29 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold">Dashboard</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-semibold">Dashboard</h2>
+        <div className="flex gap-2">
+          <button
+            onClick={() => exportToCSV(students, "students")}
+            className="cursor-pointer px-3 py-2 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+          >
+            Export Students
+          </button>
+          <button
+            onClick={() => exportToCSV(courses, "courses")}
+            className="cursor-pointer px-3 py-2 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+          >
+            Export Courses
+          </button>
+          <button
+            onClick={() => exportToCSV(faculty, "faculty")}
+            className="cursor-pointer px-3 py-2 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+          >
+            Export Faculty
+          </button>
+        </div>
+      </div>
 
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-white p-4 rounded">

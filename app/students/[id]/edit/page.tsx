@@ -40,7 +40,7 @@ export default function EditStudentPage() {
         name: data.name,
         email: data.email,
         year: Number(data.year),
-        courses: data.courses.map((c) => String(c)),
+        courses: data.courses.map((course) => String(course)),
         cgpa: data.cgpa ? Number(data.cgpa) : undefined,
       };
       await api.put(`/students/${id}`, updatedStudent);

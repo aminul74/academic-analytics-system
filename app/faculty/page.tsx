@@ -45,9 +45,9 @@ export default function FacultyPage() {
       const term = searchTerm.toLowerCase();
       setFilteredFaculty(
         faculty.filter(
-          (f) =>
-            f.name.toLowerCase().includes(term) ||
-            f.email.toLowerCase().includes(term),
+          (facultyMember) =>
+            facultyMember.name.toLowerCase().includes(term) ||
+            facultyMember.email.toLowerCase().includes(term),
         ),
       );
     }
@@ -56,8 +56,10 @@ export default function FacultyPage() {
   const handleDelete = async (id: string) => {
     try {
       await api.delete(`/faculty/${id}`);
-      setFaculty(faculty.filter((f) => f.id !== id));
-      setFilteredFaculty(filteredFaculty.filter((f) => f.id !== id));
+      setFaculty(faculty.filter((facultyMember) => facultyMember.id !== id));
+      setFilteredFaculty(
+        filteredFaculty.filter((facultyMember) => facultyMember.id !== id),
+      );
       setDeleteConfirm({ isOpen: false, facultyId: "" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to delete faculty");

@@ -36,7 +36,7 @@ export default function EditCoursePage() {
       id: data.id,
       name: data.name,
       enrollment: Number(data.enrollment),
-      faculty: data.faculty.map((f) => String(f)),
+      faculty: data.faculty.map((facultyMember) => String(facultyMember)),
     };
     await api.put(`/courses/${id}`, updatedCourse);
     router.push(`/courses/${id}`);

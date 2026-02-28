@@ -113,21 +113,21 @@ export default function CourseFormComponent({
                 Assigned Faculty
               </label>
               <div className="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-3">
-                {faculty.map((fac) => (
+                {faculty.map((facultyMember) => (
                   <label
-                    key={fac.id}
+                    key={facultyMember.id}
                     className="flex items-center gap-2 cursor-pointer"
                   >
                     <input
                       type="radio"
                       name="assignedFaculty"
-                      checked={values.faculty[0] === fac.id}
+                      checked={values.faculty[0] === facultyMember.id}
                       onChange={() => {
-                        setFieldValue("faculty", [fac.id]);
+                        setFieldValue("faculty", [facultyMember.id]);
                       }}
                       className="rounded"
                     />
-                    <span className="text-gray-700">{fac.name}</span>
+                    <span className="text-gray-700">{facultyMember.name}</span>
                   </label>
                 ))}
               </div>
