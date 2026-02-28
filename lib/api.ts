@@ -1,56 +1,55 @@
+import axios from "axios";
+
 const BASE_URL = process.env.MOCK_SERVER_URL || "http://localhost:3002";
 
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 const api = {
-  async get(endpoint: string) {
+  async get(endpoint: string | number) {
+    const path = String(endpoint);
     try {
-      const res = await fetch(`${BASE_URL}${endpoint}`);
-      if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
-      return await res.json();
+      const res = await axiosInstance.get(path);
+      return res.data;
     } catch (error) {
-      console.error(`API get error for ${endpoint}:`, error);
+      console.error(`API get error for ${path}:`, error);
       throw error;
     }
   },
 
-  async post(endpoint: string, data: Record<string, any>) {
+  async post(endpoint: string | number, data: Record<string, any>) {
+    const path = String(endpoint);
     try {
-      const res = await fetch(`${BASE_URL}${endpoint}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error(`Failed to post to ${endpoint}`);
-      return await res.json();
+      const res = await axiosInstance.post(path, data);
+      return res.data;
     } catch (error) {
-      console.error(`API post error for ${endpoint}:`, error);
+      console.error(`API post error for ${path}:`, error);
       throw error;
     }
   },
 
-  async put(endpoint: string, data: Record<string, any>) {
+  async put(endpoint: string | number, data: Record<string, any>) {
+    const path = String(endpoint);
     try {
-      const res = await fetch(`${BASE_URL}${endpoint}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error(`Failed to put to ${endpoint}`);
-      return await res.json();
+      const res = await axiosInstance.put(path, data);
+      return res.data;
     } catch (error) {
-      console.error(`API put error for ${endpoint}:`, error);
+      console.error(`API put error for ${path}:`, error);
       throw error;
     }
   },
 
-  async delete(endpoint: string) {
+  async delete(endpoint: string | number) {
+    const path = String(endpoint);
     try {
-      const res = await fetch(`${BASE_URL}${endpoint}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) throw new Error(`Failed to delete ${endpoint}`);
-      return await res.json();
+      const res = await axiosInstance.delete(path);
+      return res.data;
     } catch (error) {
-      console.error(`API delete error for ${endpoint}:`, error);
+      console.error(`API delete error for ${path}:`, error);
       throw error;
     }
   },

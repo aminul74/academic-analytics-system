@@ -1,29 +1,29 @@
 export interface Student {
-  id: number;
+  id: string;
   name: string;
   email: string;
   year: number;
-  courses: number[];
+  courses: string[];
   gpa?: number;
 }
 
 export interface Course {
   id: string;
   name: string;
-  faculty: number[];
+  faculty: string[];
   enrollment: number;
 }
 
 export interface Faculty {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  courses: number[];
+  courses: string[];
 }
 
 export interface Grade {
-  id: number;
-  studentId: number;
-  courseId: number;
+  id: string;
+  studentId: string;
+  courseId: string;
   grade: number;
 }

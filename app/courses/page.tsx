@@ -48,6 +48,8 @@ export default function CoursesPage() {
     }
   };
 
+  console.log("Courses :", courses);
+
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
 

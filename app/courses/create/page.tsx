@@ -2,45 +2,41 @@
 
 import { useRouter } from "next/navigation";
 import CourseFormComponent from "@/components/forms/CourseFormComponent";
+import { Course } from "@/types/index";
 import api from "@/lib/api";
-
-interface CreateCourseData {
-  name: string;
-  enrollment: number;
-  faculty: number[];
-}
+import { getNextId } from "@/lib/utils";
 
 export default function CreateCoursePage() {
   const router = useRouter();
 
-  const handleSubmit = async (data: CreateCourseData) => {
+  const handleSubmit = async (data: Course) => {
     try {
-      const payload = {
-        id: String(Date.now()),
+      const courses = await api.get("/courses");
+      const newId = String(getNextId(courses));
+      const newCourse: Course = {
+        id: newId,
         name: data.name,
         enrollment: Number(data.enrollment),
-        faculty: data.faculty.map(Number),
+        faculty: data.faculty.map((f) => String(f)),
       };
-
-      const result = await api.post("/courses", payload);
-      router.push(`/courses/${result.id}`);
+      const result = await api.post("/courses", newCourse);
+      const idToNavigate = result.id || newId;
+      router.push(`/courses/${idToNavigate}`);
     } catch (err) {
       console.error("Failed to create course:", err);
-      alert("Failed to create course");
+      throw err;
     }
   };
 
-  const handleCancel = () => {
-    router.push("/courses");
-  };
-
   return (
-    <section className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">
+    <section className="max-w-2xl mx-auto">
+      <h2 className="text-2xl font-semibold text-gray-900 mb-6">
         Create New Course
-      </h1>
-
-      <CourseFormComponent onSubmit={handleSubmit} onCancel={handleCancel} />
+      </h2>
+      <CourseFormComponent
+        onSubmit={handleSubmit}
+        onCancel={() => router.push("/courses")}
+      />
     </section>
   );
 }

@@ -1,121 +1,3 @@
-// "use client";
-
-// import { Formik, Form, Field, ErrorMessage } from "formik";
-// import * as Yup from "yup";
-// import { Course, Faculty } from "@/types/index";
-// import { useEffect, useState } from "react";
-// import api from "@/lib/api";
-
-// interface CourseFormProps {
-//   initialData?: Course;
-//   onSubmit: (data: Course) => Promise<void>;
-//   onCancel: () => void;
-// }
-
-// const validationSchema = Yup.object({
-//   name: Yup.string().required("Course name is required"),
-//   enrollment: Yup.number().min(0, "Must be 0 or higher").required(),
-//   faculty: Yup.array().required("At least one faculty member is required"),
-// });
-
-// export default function CourseForm({
-//   initialData,
-//   onSubmit,
-//   onCancel,
-// }: CourseFormProps) {
-//   const [facultyList, setFacultyList] = useState<Faculty[]>([]);
-
-//   useEffect(() => {
-//     api.get("/faculty").then(setFacultyList).catch(console.error);
-//   }, []);
-
-//   const initialValues: Course = initialData || {
-//     id: 0,
-//     name: "",
-//     enrollment: 0,
-//     faculty: [],
-//   };
-
-//   return (
-//     <div className="bg-white rounded-lg shadow p-6 max-w-md mx-auto">
-//       <Formik
-//         initialValues={initialValues}
-//         validationSchema={validationSchema}
-//         onSubmit={onSubmit}
-//       >
-//         {({ values, setFieldValue, isSubmitting }) => (
-//           <Form className="space-y-4">
-//             <div>
-//               <label className="block text-sm font-medium">Course Name</label>
-//               <Field
-//                 name="name"
-//                 className="mt-1 w-full border rounded px-3 py-2"
-//               />
-//               <ErrorMessage
-//                 name="name"
-//                 component="div"
-//                 className="text-red-500 text-sm"
-//               />
-//             </div>
-
-//             <div>
-//               <label className="block text-sm font-medium">Enrollment</label>
-//               <Field
-//                 name="enrollment"
-//                 type="number"
-//                 min="0"
-//                 className="mt-1 w-full border rounded px-3 py-2"
-//               />
-//               <ErrorMessage
-//                 name="enrollment"
-//                 component="div"
-//                 className="text-red-500 text-sm"
-//               />
-//             </div>
-
-//             <div>
-//               <label className="block text-sm font-medium">
-//                 Assigned Faculty
-//               </label>
-//               <div className="mt-1 space-y-1">
-//                 {facultyList.map((fac) => (
-//                   <label key={fac.id} className="flex items-center gap-2">
-//                     <input
-//                       type="radio"
-//                       name="faculty"
-//                       checked={values.faculty[0] === fac.id}
-//                       onChange={() => setFieldValue("faculty", [fac.id])}
-//                     />
-//                     {fac.name}
-//                   </label>
-//                 ))}
-//               </div>
-//             </div>
-
-//             <div className="flex justify-end gap-3 pt-4">
-//               <button
-//                 type="button"
-//                 onClick={onCancel}
-//                 className="px-4 py-2 border rounded"
-//                 disabled={isSubmitting}
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 type="submit"
-//                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-//                 disabled={isSubmitting}
-//               >
-//                 {isSubmitting ? "Saving..." : "Save Course"}
-//               </button>
-//             </div>
-//           </Form>
-//         )}
-//       </Formik>
-//     </div>
-//   );
-// }
-
 "use client";
 
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
@@ -239,9 +121,9 @@ export default function CourseFormComponent({
                     <input
                       type="radio"
                       name="assignedFaculty"
-                      checked={values.faculty[0] == fac.id}
+                      checked={values.faculty[0] === fac.id}
                       onChange={() => {
-                        setFieldValue("faculty", [Number(fac.id)]);
+                        setFieldValue("faculty", [fac.id]);
                       }}
                       className="rounded"
                     />

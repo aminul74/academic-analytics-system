@@ -32,12 +32,13 @@ export default function EditCoursePage() {
   }, [id]);
 
   const handleSubmit = async (data: Course) => {
-    const normalized = {
-      ...data,
-      id: String(data.id),
-      faculty: Array.isArray(data.faculty) ? data.faculty.map(Number) : [],
+    const updatedCourse: Course = {
+      id: data.id,
+      name: data.name,
+      enrollment: Number(data.enrollment),
+      faculty: data.faculty.map((f) => String(f)),
     };
-    await api.put(`/courses/${id}`, normalized);
+    await api.put(`/courses/${id}`, updatedCourse);
     router.push(`/courses/${id}`);
   };
 

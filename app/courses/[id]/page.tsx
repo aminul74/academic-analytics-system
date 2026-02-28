@@ -12,7 +12,7 @@ import ConfirmDialog from "@/components/ui/ConfirmDialog";
 export default function CourseDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const id = Number(params.id);
+  const id = String(params.id);
 
   const [course, setCourse] = useState<Course | null>(null);
   const [students, setStudents] = useState<Student[]>([]);
@@ -21,7 +21,7 @@ export default function CourseDetailPage() {
   const [error, setError] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState(false);
 
-  const fetchCourseData = async (courseId: number) => {
+  const fetchCourseData = async (courseId: string) => {
     setLoading(true);
     setError("");
 
@@ -49,9 +49,7 @@ export default function CourseDetailPage() {
 
   const getEnrolledStudents = () => {
     if (!course) return [];
-    return students.filter((student) =>
-      student.courses.includes(Number(course.id)),
-    );
+    return students.filter((student) => student.courses.includes(course.id));
   };
 
   const handleDelete = async () => {
