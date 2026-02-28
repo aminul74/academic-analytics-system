@@ -19,8 +19,8 @@ export default function StudentsPage() {
   const [error, setError] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<{
     isOpen: boolean;
-    studentId: number;
-  }>({ isOpen: false, studentId: 0 });
+    studentId: string;
+  }>({ isOpen: false, studentId: "" });
 
   useEffect(() => {
     fetchData();
@@ -59,12 +59,12 @@ export default function StudentsPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     try {
       await api.delete(`/students/${id}`);
       setStudents(students.filter((s) => s.id !== id));
       setFilteredStudents(filteredStudents.filter((s) => s.id !== id));
-      setDeleteConfirm({ isOpen: false, studentId: 0 });
+      setDeleteConfirm({ isOpen: false, studentId: "" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to delete student");
     }
@@ -139,7 +139,7 @@ export default function StudentsPage() {
         title="Delete Student"
         message="Are you sure you want to delete this student? This action cannot be undone."
         onConfirm={() => handleDelete(deleteConfirm.studentId)}
-        onCancel={() => setDeleteConfirm({ isOpen: false, studentId: 0 })}
+        onCancel={() => setDeleteConfirm({ isOpen: false, studentId: "" })}
         confirmText="Delete"
         cancelText="Cancel"
       />

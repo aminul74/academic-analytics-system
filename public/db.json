@@ -20,20 +20,6 @@
         "2"
       ],
       "gpa": 4
-    },
-    {
-      "id": "3",
-      "name": "Sadat",
-      "email": "sadat@gmail.com",
-      "year": 1,
-      "courses": [
-        "1",
-        "2",
-        "6",
-        "5",
-        "7"
-      ],
-      "gpa": 2
     }
   ],
   "courses": [
