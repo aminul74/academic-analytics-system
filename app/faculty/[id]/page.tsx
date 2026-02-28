@@ -28,11 +28,10 @@ export default function FacultyDetailPage() {
     setLoading(true);
     setError("");
     try {
-      const [facultyData, coursesData] = await Promise.all([
-        api.get(`/faculty/${id}`),
-        api.get("/courses"),
-      ]);
+      const facultyData = await api.get(`/faculty/${id}`);
       setFaculty(facultyData);
+
+      const coursesData = await api.get("/courses");
       setCourses(coursesData);
     } catch (err) {
       setError(

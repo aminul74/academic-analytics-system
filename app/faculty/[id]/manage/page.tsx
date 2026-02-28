@@ -27,13 +27,13 @@ export default function FacultyManagePage() {
     setLoading(true);
     setError("");
     try {
-      const [facultyData, coursesData, studentsData] = await Promise.all([
-        api.get(`/faculty/${id}`),
-        api.get("/courses"),
-        api.get("/students"),
-      ]);
+      const facultyData = await api.get(`/faculty/${id}`);
       setFaculty(facultyData);
+
+      const coursesData = await api.get("/courses");
       setCourses(coursesData);
+
+      const studentsData = await api.get("/students");
       setStudents(studentsData);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to fetch data");

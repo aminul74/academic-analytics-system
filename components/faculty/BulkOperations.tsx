@@ -120,14 +120,15 @@ export default function BulkOperations({
     if (!courseId || !selectedStudents.length)
       return setError("Please select course and students");
     await withLoading(async () => {
-      await Promise.all(
-        selectedStudents.map((id) => {
-          const student = students.find((s) => s.id === id)!;
-          if (!student.courses.includes(courseId))
-            student.courses.push(courseId);
-          return api.put(`/students/${id}`, student);
-        }),
-      );
+      const updates = selectedStudents.map((id) => {
+        const student = students.find((s) => s.id === id)!;
+        if (!student.courses.includes(courseId)) student.courses.push(courseId);
+        return api.put(`/students/${id}`, student);
+      });
+
+      for (const update of updates) {
+        await update;
+      }
       setSuccess(`Successfully assigned ${selectedStudents.length} student(s)`);
     });
   };
@@ -164,7 +165,9 @@ export default function BulkOperations({
           });
         });
 
-      await Promise.all(updates);
+      for (const update of updates) {
+        await update;
+      }
       setSuccess(
         `Successfully updated grades for ${updates.length} student(s)`,
       );
@@ -181,17 +184,19 @@ export default function BulkOperations({
     if (!courseId || !selectedStudents.length)
       return setError("Please select course and students");
     await withLoading(async () => {
-      await Promise.all(
-        selectedStudents.map((id) => {
-          const student = students.find(
-            (studentRecord) => studentRecord.id === id,
-          )!;
-          student.courses = student.courses.filter(
-            (enrolledCourseId) => enrolledCourseId !== courseId,
-          );
-          return api.put(`/students/${id}`, student);
-        }),
-      );
+      const updates = selectedStudents.map((id) => {
+        const student = students.find(
+          (studentRecord) => studentRecord.id === id,
+        )!;
+        student.courses = student.courses.filter(
+          (enrolledCourseId) => enrolledCourseId !== courseId,
+        );
+        return api.put(`/students/${id}`, student);
+      });
+
+      for (const update of updates) {
+        await update;
+      }
       setSuccess(`Successfully removed ${selectedStudents.length} student(s)`);
     });
   };

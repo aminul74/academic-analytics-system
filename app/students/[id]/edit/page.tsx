@@ -5,12 +5,14 @@ import { useParams, useRouter } from "next/navigation";
 import StudentFormComponent from "@/components/forms/StudentFormComponent";
 import { Student } from "@/types/index";
 import api from "@/lib/api";
+import { useToast } from "@/lib/toastContext";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 
 export default function EditStudentPage() {
   const params = useParams();
   const router = useRouter();
+  const { showToast } = useToast();
   const id = parseInt(params.id as string);
 
   const [student, setStudent] = useState<Student | null>(null);
@@ -23,15 +25,16 @@ export default function EditStudentPage() {
         const data = await api.get(`/students/${id}`);
         setStudent(data);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to fetch student",
-        );
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to fetch student";
+        setError(errorMessage);
+        showToast(errorMessage, "error");
       } finally {
         setLoading(false);
       }
     };
     fetchStudent();
-  }, [id]);
+  }, [id, showToast]);
 
   const handleSubmit = async (data: Student) => {
     try {
@@ -44,8 +47,12 @@ export default function EditStudentPage() {
         cgpa: data.cgpa ? Number(data.cgpa) : undefined,
       };
       await api.put(`/students/${id}`, updatedStudent);
+      showToast("Student updated successfully!", "success");
       router.push(`/students/${id}`);
     } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to update student";
+      showToast(errorMessage, "error");
       throw error;
     }
   };

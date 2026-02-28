@@ -30,13 +30,13 @@ export default function StudentDetailPage() {
     setLoading(true);
     setError("");
     try {
-      const [studentData, coursesData, gradesData] = await Promise.all([
-        api.get(`/students/${id}`),
-        api.get("/courses"),
-        api.get("/grades"),
-      ]);
+      const studentData = await api.get(`/students/${id}`);
       setStudent(studentData);
+
+      const coursesData = await api.get("/courses");
       setCourses(coursesData);
+
+      const gradesData = await api.get("/grades");
       setGrades(gradesData.filter((g: Grade) => String(g.studentId) === id));
     } catch (err) {
       setError(

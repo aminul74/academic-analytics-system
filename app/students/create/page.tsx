@@ -5,9 +5,11 @@ import StudentFormComponent from "@/components/forms/StudentFormComponent";
 import { Student } from "@/types/index";
 import api from "@/lib/api";
 import { getNextId } from "@/lib/utils";
+import { useToast } from "@/lib/toastContext";
 
 export default function CreateStudentPage() {
   const router = useRouter();
+  const { showToast } = useToast();
 
   const handleSubmit = async (data: Student) => {
     try {
@@ -21,8 +23,12 @@ export default function CreateStudentPage() {
         cgpa: data.cgpa ? Number(data.cgpa) : undefined,
       };
       const result = await api.post("/students", newStudent);
+      showToast("Student created successfully!", "success");
       router.push(`/students/${result.id}`);
     } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to create student";
+      showToast(errorMessage, "error");
       throw error;
     }
   };

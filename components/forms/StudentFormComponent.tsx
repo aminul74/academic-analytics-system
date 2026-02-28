@@ -19,6 +19,9 @@ const validationSchema = Yup.object().shape({
     .min(1, "Year must be 1 or higher")
     .max(4, "Year must be 4 or lower")
     .required("Year is required"),
+  cgpa: Yup.number()
+    .min(0, "CGPA must be 0 or higher")
+    .max(4, "CGPA must be 4 or lower"),
   courses: Yup.array(),
 });
 
@@ -49,6 +52,7 @@ export default function StudentFormComponent({
     name: "",
     email: "",
     year: 1,
+    cgpa: undefined,
     courses: [],
   };
 
@@ -128,6 +132,28 @@ export default function StudentFormComponent({
                 )}
               </ErrorMessage>
             </div>
+
+            {initialData && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  CGPA
+                </label>
+                <Field
+                  name="cgpa"
+                  type="number"
+                  min="0"
+                  max="4"
+                  step="0.01"
+                  placeholder="0.00"
+                  className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <ErrorMessage name="cgpa">
+                  {(msg) => (
+                    <div className="text-red-500 text-sm mt-1">{msg}</div>
+                  )}
+                </ErrorMessage>
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">

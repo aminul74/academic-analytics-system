@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Student, Course } from "@/types/index";
 import api from "@/lib/api";
+import { useToast } from "@/lib/toastContext";
 import DataTable, { Column } from "@/components/tables/DataTable";
 import SearchFilter from "@/components/filters/SearchFilter";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -12,6 +13,7 @@ import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import { getFacultyNames, getCourseNames } from "@/lib/utils";
 
 export default function StudentsPage() {
+  const { showToast } = useToast();
   const [students, setStudents] = useState<Student[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
@@ -30,12 +32,11 @@ export default function StudentsPage() {
     setLoading(true);
     setError("");
     try {
-      const [studentsData, coursesData] = await Promise.all([
-        api.get("/students"),
-        api.get("/courses"),
-      ]);
+      const studentsData = await api.get("/students");
       setStudents(studentsData);
       setFilteredStudents(studentsData);
+
+      const coursesData = await api.get("/courses");
       setCourses(coursesData);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to fetch data");
@@ -67,8 +68,12 @@ export default function StudentsPage() {
         filteredStudents.filter((student) => student.id !== id),
       );
       setDeleteConfirm({ isOpen: false, studentId: "" });
+      showToast("Student deleted successfully!", "success");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to delete student");
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to delete student";
+      setError(errorMessage);
+      showToast(errorMessage, "error");
     }
   };
 

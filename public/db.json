@@ -6,7 +6,6 @@
       "email": "aminul@university.edu",
       "year": 2,
       "courses": [
-        "3",
         "1",
         "5"
       ],
@@ -30,7 +29,6 @@
       "courses": [
         "1",
         "2",
-        "3",
         "4"
       ],
       "cgpa": 4
@@ -41,8 +39,10 @@
       "email": "mohona.islam@university.edu",
       "year": 1,
       "courses": [
-        "3"
-      ]
+        "2",
+        "5"
+      ],
+      "cgpa": 4
     },
     {
       "id": "5",
@@ -95,7 +95,6 @@
       "name": "Dr. Muhammad Rahman",
       "email": "m.rahman@university.edu",
       "courses": [
-        "1",
         "2"
       ]
     },
@@ -104,7 +103,7 @@
       "name": "Dr. Abdul Karim Ahmed",
       "email": "a.karim@university.edu",
       "courses": [
-        "3"
+        "1"
       ]
     },
     {
@@ -112,8 +111,7 @@
       "name": "Dr. Sadeq Haque",
       "email": "s.haque@university.edu",
       "courses": [
-        "1",
-        "2"
+        "4"
       ]
     },
     {
@@ -155,6 +153,12 @@
       "studentId": "3",
       "courseId": "2",
       "grade": 92
+    },
+    {
+      "id": "6",
+      "studentId": "4",
+      "courseId": "5",
+      "grade": 99
     }
   ]
 }

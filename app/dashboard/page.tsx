@@ -7,6 +7,7 @@ import TopStudentsTable from "@/components/tables/TopStudentsTable";
 import { exportToCSV } from "@/lib/exportUtils";
 
 export default function DashboardPage() {
+  const [userName, setUserName] = useState("");
   const [students, setStudents] = useState<any[]>([]);
   const [courses, setCourses] = useState<any[]>([]);
   const [faculty, setFaculty] = useState<any[]>([]);
@@ -26,13 +27,22 @@ export default function DashboardPage() {
   };
 
   useEffect(() => {
+    const name = localStorage.getItem("userName");
+    if (name) {
+      setUserName(name);
+    }
     fetchDashboardData();
   }, []);
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">Dashboard</h2>
+        <div>
+          <h2 className="text-2xl font-semibold">Dashboard</h2>
+          {userName && (
+            <p className="text-gray-600 mt-1">Welcome, {userName}!</p>
+          )}
+        </div>
         <div className="flex gap-2">
           <button
             onClick={() => exportToCSV(students, "students")}
