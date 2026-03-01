@@ -73,9 +73,9 @@ export default function CourseDetailPage() {
     <section className="space-y-6">
       {error && <ErrorMessage message={error} onDismiss={() => setError("")} />}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <h2 className="text-2xl font-semibold">{course.name}</h2>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Link
             href={`/courses/${id}/edit`}
             className="cursor-pointer px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
@@ -97,7 +97,7 @@ export default function CourseDetailPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="bg-white shadow rounded p-4">
           <div className="text-gray-600 text-sm">Enrollment</div>
           <div className="text-2xl font-semibold">{course.enrollment}</div>
@@ -110,82 +110,94 @@ export default function CourseDetailPage() {
         </div>
       </div>
 
-      <div className="bg-white shadow rounded overflow-hidden">
+      <div className="bg-white shadow rounded overflow-x-hidden">
         <div className="px-6 py-4 border-b">
           <h3 className="text-lg font-semibold">Enrolled Students</h3>
         </div>
-        <table className="w-full text-left">
-          <thead className="bg-gray-50 border-b">
-            <tr>
-              <th className="px-6 py-3 text-sm font-semibold">Name</th>
-              <th className="px-6 py-3 text-sm font-semibold">Email</th>
-              <th className="px-6 py-3 text-sm font-semibold">Year</th>
-            </tr>
-          </thead>
-          <tbody>
-            {enrolledStudents.length === 0 ? (
+        <div className="overflow-x-auto">
+          <table className="w-full text-left min-w-90">
+            <thead className="bg-gray-50 border-b">
               <tr>
-                <td colSpan={3} className="px-6 py-8 text-center text-gray-500">
-                  No students enrolled
-                </td>
+                <th className="px-6 py-3 text-sm font-semibold">Name</th>
+                <th className="px-6 py-3 text-sm font-semibold">Email</th>
+                <th className="px-6 py-3 text-sm font-semibold">Year</th>
               </tr>
-            ) : (
-              enrolledStudents.map((student) => (
-                <tr key={student.id} className="border-t hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <Link
-                      href={`/students/${student.id}`}
-                      className="text-blue-600 hover:underline"
-                    >
-                      {student.name}
-                    </Link>
+            </thead>
+            <tbody>
+              {enrolledStudents.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={3}
+                    className="px-6 py-8 text-center text-gray-500"
+                  >
+                    No students enrolled
                   </td>
-                  <td className="px-6 py-4">{student.email}</td>
-                  <td className="px-6 py-4">{student.year}</td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                enrolledStudents.map((student) => (
+                  <tr key={student.id} className="border-t hover:bg-gray-50">
+                    <td className="px-6 py-4">
+                      <Link
+                        href={`/students/${student.id}`}
+                        className="text-blue-600 hover:underline"
+                      >
+                        {student.name}
+                      </Link>
+                    </td>
+                    <td className="px-6 py-4">{student.email}</td>
+                    <td className="px-6 py-4">{student.year}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div className="bg-white shadow rounded overflow-hidden">
+      <div className="bg-white shadow rounded overflow-x-hidden">
         <div className="px-6 py-4 border-b">
           <h3 className="text-lg font-semibold">Grades</h3>
         </div>
-        <table className="w-full text-left">
-          <thead className="bg-gray-50 border-b">
-            <tr>
-              <th className="px-6 py-3 text-sm font-semibold">Student</th>
-              <th className="px-6 py-3 text-sm font-semibold">Score</th>
-              <th className="px-6 py-3 text-sm font-semibold">Letter</th>
-            </tr>
-          </thead>
-          <tbody>
-            {grades.length === 0 ? (
+        <div className="overflow-x-auto">
+          <table className="w-full text-left min-w-90">
+            <thead className="bg-gray-50 border-b">
               <tr>
-                <td colSpan={2} className="px-6 py-8 text-center text-gray-500">
-                  No grades recorded
-                </td>
+                <th className="px-6 py-3 text-sm font-semibold">Student</th>
+                <th className="px-6 py-3 text-sm font-semibold">Score</th>
+                <th className="px-6 py-3 text-sm font-semibold">Letter</th>
               </tr>
-            ) : (
-              grades.map((grade) => {
-                const student = students.find(
-                  (student) => String(student.id) === String(grade.studentId),
-                );
-                return (
-                  <tr key={grade.id} className="border-t hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      {student?.name || `Student ${grade.studentId}`}
-                    </td>
-                    <td className="px-6 py-4">{grade.grade}</td>
-                    <td className="px-6 py-4">{getLetterGrade(grade.grade)}</td>
-                  </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {grades.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={2}
+                    className="px-6 py-8 text-center text-gray-500"
+                  >
+                    No grades recorded
+                  </td>
+                </tr>
+              ) : (
+                grades.map((grade) => {
+                  const student = students.find(
+                    (student) => String(student.id) === String(grade.studentId),
+                  );
+                  return (
+                    <tr key={grade.id} className="border-t hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        {student?.name || `Student ${grade.studentId}`}
+                      </td>
+                      <td className="px-6 py-4">{grade.grade}</td>
+                      <td className="px-6 py-4">
+                        {getLetterGrade(grade.grade)}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <ConfirmDialog

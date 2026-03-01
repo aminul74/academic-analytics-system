@@ -63,14 +63,14 @@ export default function FacultyDetailPage() {
     <section className="space-y-6">
       {error && <ErrorMessage message={error} onDismiss={() => setError("")} />}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-2xl font-semibold text-gray-900">
             {faculty.name}
           </h2>
           <p className="text-gray-600 mt-1">{faculty.email}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Link
             href={`/faculty/${id}/edit`}
             className="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
@@ -107,13 +107,13 @@ export default function FacultyDetailPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow">
+      <div className="bg-white rounded-lg shadow overflow-x-auto">
         <div className="px-6 py-4 border-b">
           <h3 className="text-lg font-semibold text-gray-900">
             Assigned Courses
           </h3>
         </div>
-        <table className="w-full">
+        <table className="w-full min-w-90">
           <thead className="bg-gray-50 border-b">
             <tr>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">

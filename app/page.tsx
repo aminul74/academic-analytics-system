@@ -32,16 +32,18 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen w-screen flex">
-      <div className="w-1/2 bg-sky-600 text-white p-12 flex flex-col justify-center">
-        <h1 className="text-4xl font-bold mb-4">Academic Analytics System</h1>
-        <p className="text-lg opacity-90">
+    <div className="min-h-screen w-full flex flex-col md:flex-row overflow-x-hidden">
+      <div className="w-full md:w-1/2 bg-sky-600 text-white px-6 py-10 md:p-12 flex flex-col justify-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">
+          Academic Analytics System
+        </h1>
+        <p className="text-base md:text-lg opacity-90">
           Manage students, courses, faculty, and grades in one place.
         </p>
       </div>
 
-      <div className="w-1/2 bg-gray-100 p-12 flex flex-col items-center justify-center gap-6">
-        <div className="demo-container">
+      <div className="w-full md:w-1/2 bg-gray-100 px-6 py-10 md:p-12 flex flex-col items-center justify-center gap-6">
+        <div className="w-full max-w-md">
           <AssessmentDemo />
         </div>
         <AuthForm

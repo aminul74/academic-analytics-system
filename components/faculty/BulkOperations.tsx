@@ -203,20 +203,22 @@ export default function BulkOperations({
 
   return (
     <div className="bg-white rounded-lg shadow">
-      <div className="border-b flex">
-        {TABS.map(({ key, label }) => (
-          <button
-            key={key}
-            onClick={() => setActiveTab(key)}
-            className={`cursor-pointer px-6 py-4 font-medium border-b-2 ${
-              activeTab === key
-                ? "border-blue-600 text-blue-600"
-                : "border-transparent text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
+      <div className="border-b overflow-x-auto">
+        <div className="flex min-w-max">
+          {TABS.map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => setActiveTab(key)}
+              className={`cursor-pointer px-6 py-4 font-medium border-b-2 ${
+                activeTab === key
+                  ? "border-blue-600 text-blue-600"
+                  : "border-transparent text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="p-6">

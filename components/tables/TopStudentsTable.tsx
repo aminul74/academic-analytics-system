@@ -16,25 +16,27 @@ export default function TopStudentsTable({ students }: Props) {
   const topStudents = sortedStudents.slice(0, 5);
 
   return (
-    <table className="w-full bg-white border-collapse">
-      <thead className="bg-gray-200">
-        <tr>
-          <th className="px-3 py-2 text-left">Name</th>
-          <th className="px-3 py-2 text-left">Year</th>
-          <th className="px-3 py-2 text-left">CGPA</th>
-        </tr>
-      </thead>
-      <tbody>
-        {topStudents.map((student) => (
-          <tr key={student.id} className="border-b border-gray-200">
-            <td className="px-3 py-2">{student.name}</td>
-            <td className="px-3 py-2">{student.year}</td>
-            <td className="px-3 py-2">
-              {student.cgpa !== undefined ? student.cgpa.toFixed(2) : "-"}
-            </td>
+    <div className="overflow-x-auto">
+      <table className="w-full bg-white border-collapse min-w-70">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-3 py-2 text-left">Name</th>
+            <th className="px-3 py-2 text-left">Year</th>
+            <th className="px-3 py-2 text-left">CGPA</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {topStudents.map((student) => (
+            <tr key={student.id} className="border-b border-gray-200">
+              <td className="px-3 py-2">{student.name}</td>
+              <td className="px-3 py-2">{student.year}</td>
+              <td className="px-3 py-2">
+                {student.cgpa !== undefined ? student.cgpa.toFixed(2) : "-"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

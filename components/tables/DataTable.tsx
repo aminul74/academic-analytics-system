@@ -68,84 +68,86 @@ export default function DataTable({
 
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow">
-      <table className="w-full">
-        <thead className="bg-gray-50 border-b border-gray-200">
-          <tr>
-            {columns.map((column) => (
-              <th
-                key={column.key}
-                className="px-6 py-3 text-left text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-100"
-                onClick={() => column.sortable && handleSort(column.key)}
-              >
-                <div className="flex items-center gap-2">
-                  {column.label}
-                  {column.sortable && (
-                    <span className="text-xs text-gray-400">
-                      {sortConfig?.key === column.key
-                        ? sortConfig.direction === "asc"
-                          ? "↑"
-                          : "↓"
-                        : "−"}
-                    </span>
-                  )}
-                </div>
-              </th>
-            ))}
-            {actions && (
-              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
-                Actions
-              </th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.length === 0 ? (
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-120">
+          <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <td
-                colSpan={columns.length + (actions ? 1 : 0)}
-                className="px-6 py-8 text-center text-gray-500"
-              >
-                No data available
-              </td>
+              {columns.map((column) => (
+                <th
+                  key={column.key}
+                  className="px-6 py-3 text-left text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-100"
+                  onClick={() => column.sortable && handleSort(column.key)}
+                >
+                  <div className="flex items-center gap-2">
+                    {column.label}
+                    {column.sortable && (
+                      <span className="text-xs text-gray-400">
+                        {sortConfig?.key === column.key
+                          ? sortConfig.direction === "asc"
+                            ? "↑"
+                            : "↓"
+                          : "−"}
+                      </span>
+                    )}
+                  </div>
+                </th>
+              ))}
+              {actions && (
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  Actions
+                </th>
+              )}
             </tr>
-          ) : (
-            paginatedData.map((row, index) => (
-              <tr
-                key={index}
-                className="border-t border-gray-200 hover:bg-gray-50 cursor-pointer"
-                onClick={() => onRowClick?.(row)}
-              >
-                {columns.map((column) => (
-                  <td
-                    key={column.key}
-                    className="px-6 py-4 text-sm text-gray-900"
-                  >
-                    {column.render
-                      ? column.render(row[column.key], row)
-                      : row[column.key]}
-                  </td>
-                ))}
-                {actions && (
-                  <td
-                    className="px-6 py-4 text-sm"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {actions(row)}
-                  </td>
-                )}
+          </thead>
+          <tbody>
+            {paginatedData.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={columns.length + (actions ? 1 : 0)}
+                  className="px-6 py-8 text-center text-gray-500"
+                >
+                  No data available
+                </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              paginatedData.map((row, index) => (
+                <tr
+                  key={index}
+                  className="border-t border-gray-200 hover:bg-gray-50 cursor-pointer"
+                  onClick={() => onRowClick?.(row)}
+                >
+                  {columns.map((column) => (
+                    <td
+                      key={column.key}
+                      className="px-6 py-4 text-sm text-gray-900"
+                    >
+                      {column.render
+                        ? column.render(row[column.key], row)
+                        : row[column.key]}
+                    </td>
+                  ))}
+                  {actions && (
+                    <td
+                      className="px-6 py-4 text-sm"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {actions(row)}
+                    </td>
+                  )}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
 
-      <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t border-gray-200">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-4 bg-gray-50 border-t border-gray-200">
         <div className="text-sm text-gray-600">
           Showing {startIndex + 1} to{" "}
           {Math.min(startIndex + itemsPerPage, sortedData.length)} of{" "}
           {sortedData.length} items
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
             disabled={currentPage === 1}

@@ -53,7 +53,7 @@ export default function FacultyManagePage() {
     <section className="space-y-6">
       {error && <ErrorMessage message={error} onDismiss={() => setError("")} />}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <h2 className="text-2xl font-semibold text-gray-900">
           Manage Students & Grades: {faculty.name}
         </h2>

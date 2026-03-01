@@ -36,14 +36,14 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h2 className="text-2xl font-semibold">Dashboard</h2>
           {userName && (
             <p className="text-gray-600 mt-1">Welcome, {userName}!</p>
           )}
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => exportToCSV(students, "students")}
             className="cursor-pointer px-3 py-2 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
@@ -65,7 +65,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white p-4 rounded">
           <p className="text-gray-500">Total Students</p>
           <p className="text-xl font-semibold">{students.length}</p>
@@ -82,7 +82,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="bg-white p-5 rounded shadow">
           <h3 className="text-gray-700 font-semibold mb-3">
             Course Enrollment
@@ -90,7 +90,7 @@ export default function DashboardPage() {
           <EnrollmentBarChart courses={courses} />
         </div>
 
-        <div className="bg-white p-5 rounded shadow">
+        <div className="bg-white p-5 rounded shadow overflow-x-auto">
           <h3 className="text-gray-700 font-semibold mb-3">Top Students</h3>
           <TopStudentsTable students={students} />
         </div>

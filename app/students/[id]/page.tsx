@@ -68,14 +68,14 @@ export default function StudentDetailPage() {
     <section className="space-y-6">
       {error && <ErrorMessage message={error} onDismiss={() => setError("")} />}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-2xl font-semibold text-gray-900">
             {student.name}
           </h2>
           <p className="text-gray-600 mt-1">{student.email}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Link
             href={`/students/${id}/edit`}
             className="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
@@ -97,7 +97,7 @@ export default function StudentDetailPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white rounded-lg shadow p-4">
           <div className="text-gray-600 text-sm">Year</div>
           <div className="text-2xl font-semibold text-gray-900">
@@ -118,13 +118,13 @@ export default function StudentDetailPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow">
+      <div className="bg-white rounded-lg shadow overflow-x-auto">
         <div className="px-6 py-4 border-b">
           <h3 className="text-lg font-semibold text-gray-900">
             Enrolled Courses
           </h3>
         </div>
-        <table className="w-full">
+        <table className="w-full min-w-90">
           <thead className="bg-gray-50 border-b">
             <tr>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
@@ -158,11 +158,11 @@ export default function StudentDetailPage() {
         </table>
       </div>
 
-      <div className="bg-white rounded-lg shadow">
+      <div className="bg-white rounded-lg shadow overflow-x-auto">
         <div className="px-6 py-4 border-b">
           <h3 className="text-lg font-semibold text-gray-900">Grades</h3>
         </div>
-        <table className="w-full">
+        <table className="w-full min-w-90">
           <thead className="bg-gray-50 border-b">
             <tr>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
