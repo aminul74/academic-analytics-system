@@ -5,8 +5,6 @@ const BASE_URL =
   "https://academic-analytics-system.netlify.app/db.json";
 const IS_STATIC_JSON = BASE_URL.endsWith("db.json");
 const LS_KEY = "mock_db";
-console.log("PROCESS ::", process.env.NEXT_PUBLIC_MOCK_SERVER_URL);
-console.log("API base URL:", BASE_URL);
 
 if (IS_STATIC_JSON) {
   console.warn(
