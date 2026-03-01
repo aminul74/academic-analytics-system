@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = process.env.MOCK_SERVER_URL || "http://localhost:3001/db.json";
+const BASE_URL =
+  process.env.MOCK_SERVER_URL ||
+  "https://academic-analytics-system.netlify.app/db.json";
 const IS_STATIC_JSON = BASE_URL.endsWith("db.json");
 const LS_KEY = "mock_db";
 
