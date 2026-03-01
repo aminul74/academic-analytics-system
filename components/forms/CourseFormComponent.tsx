@@ -82,7 +82,7 @@ export default function CourseFormComponent({
               <Field
                 name="name"
                 type="text"
-                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
               <ErrorMessage name="name">
                 {(msg) => (
@@ -99,7 +99,7 @@ export default function CourseFormComponent({
                 name="enrollment"
                 type="number"
                 min="0"
-                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
               <ErrorMessage name="enrollment">
                 {(msg) => (
@@ -110,7 +110,7 @@ export default function CourseFormComponent({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Assigned Faculty
+                Assigned Faculty(optional)
               </label>
               <div className="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-3">
                 {faculty.map((facultyMember) => (

@@ -58,7 +58,7 @@ export default function SearchFilter({
             placeholder={placeholder}
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
           />
         </div>
 
@@ -69,7 +69,7 @@ export default function SearchFilter({
                 <select
                   value={activeFilters[key] || ""}
                   onChange={(e) => handleFilterChange(key, e.target.value)}
-                  className="px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
                 >
                   <option value="">{filter.label}</option>
                   {filter.options.map((option) => (

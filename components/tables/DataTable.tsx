@@ -69,7 +69,7 @@ export default function DataTable({
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow">
       <table className="w-full">
-        <thead className="bg-gray-50 border-b">
+        <thead className="bg-gray-50 border-b border-gray-200">
           <tr>
             {columns.map((column) => (
               <th
@@ -112,7 +112,7 @@ export default function DataTable({
             paginatedData.map((row, index) => (
               <tr
                 key={index}
-                className="border-t hover:bg-gray-50 cursor-pointer"
+                className="border-t border-gray-200 hover:bg-gray-50 cursor-pointer"
                 onClick={() => onRowClick?.(row)}
               >
                 {columns.map((column) => (
@@ -139,7 +139,7 @@ export default function DataTable({
         </tbody>
       </table>
 
-      <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t">
+      <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-t border-gray-200">
         <div className="text-sm text-gray-600">
           Showing {startIndex + 1} to{" "}
           {Math.min(startIndex + itemsPerPage, sortedData.length)} of{" "}

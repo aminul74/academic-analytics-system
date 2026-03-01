@@ -15,11 +15,19 @@ export default function EnrollmentBarChart({ courses }: Props) {
 
   const options = {
     chart: { id: "enrollment-bar-chart" },
-    xaxis: { categories: courses.map((c) => c.name) },
+    xaxis: {
+      categories: courses.map((course) => course.name),
+      labels: {
+        rotate: -45,
+        rotateAlways: true,
+        hideOverlappingLabels: false,
+        trim: false,
+      },
+    },
   };
 
   const series = [
-    { name: "Enrollment", data: courses.map((c) => c.enrollment) },
+    { name: "Enrollment", data: courses.map((course) => course.enrollment) },
   ];
 
   return <Chart type="bar" height={300} options={options} series={series} />;

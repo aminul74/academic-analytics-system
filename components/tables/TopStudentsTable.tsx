@@ -26,7 +26,7 @@ export default function TopStudentsTable({ students }: Props) {
       </thead>
       <tbody>
         {topStudents.map((student) => (
-          <tr key={student.id} className="border-b">
+          <tr key={student.id} className="border-b border-gray-200">
             <td className="px-3 py-2">{student.name}</td>
             <td className="px-3 py-2">{student.year}</td>
             <td className="px-3 py-2">

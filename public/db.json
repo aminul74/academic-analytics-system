@@ -52,6 +52,27 @@
       "courses": [
         "2",
         "1"
+      ],
+      "cgpa": 3.5
+    },
+    {
+      "id": "6",
+      "name": "Sabbir Ahmed",
+      "email": "sabbir.ahmed@university.edu",
+      "year": 1,
+      "courses": [
+        "6"
+      ],
+      "cgpa": 3.5
+    },
+    {
+      "id": "7",
+      "name": "Tasnia Tasnim",
+      "email": "tasnia.tasnim@university.edu",
+      "year": 1,
+      "courses": [
+        "6",
+        "5"
       ]
     }
   ],
@@ -59,7 +80,7 @@
     {
       "id": "1",
       "name": "Engineering Mathematics",
-      "enrollment": 150,
+      "enrollment": 125,
       "faculty": [
         "2"
       ]
@@ -67,15 +88,15 @@
     {
       "id": "2",
       "name": "Theory of Computing",
+      "enrollment": 260,
       "faculty": [
         "1"
-      ],
-      "enrollment": 700
+      ]
     },
     {
       "id": "4",
       "name": "Advanced Algorithms",
-      "enrollment": 20,
+      "enrollment": 150,
       "faculty": [
         "3"
       ]
@@ -83,9 +104,17 @@
     {
       "id": "5",
       "name": "Engineering Ethics",
-      "enrollment": 50,
+      "enrollment": 300,
       "faculty": [
         "4"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "General English",
+      "enrollment": 200,
+      "faculty": [
+        "3"
       ]
     }
   ],
@@ -152,13 +181,25 @@
       "id": "5",
       "studentId": "3",
       "courseId": "2",
-      "grade": 92
+      "grade": 80
     },
     {
       "id": "6",
       "studentId": "4",
       "courseId": "5",
       "grade": 99
+    },
+    {
+      "id": "7",
+      "studentId": "4",
+      "courseId": "2",
+      "grade": 85
+    },
+    {
+      "id": "8",
+      "studentId": "5",
+      "courseId": "2",
+      "grade": 75
     }
   ]
 }

@@ -99,7 +99,9 @@ export default function FacultyDetailPage() {
       </div>
 
       <div className="bg-white rounded-lg shadow p-4">
-        <div className="text-gray-600 text-sm">Assigned Courses</div>
+        <div className="text-gray-600 text-sm">
+          Assigned Courses(if no courses are assigned, this value will be 0)
+        </div>
         <div className="text-2xl font-semibold text-gray-900 mt-2">
           {assignedCourses.length}
         </div>

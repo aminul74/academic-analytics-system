@@ -47,13 +47,14 @@ export default function StudentFormComponent({
     fetchCourses();
   }, []);
 
-  const initialValues: Student = initialData || {
+  const initialValues: Student = {
     id: "",
     name: "",
     email: "",
     year: 1,
-    cgpa: undefined,
     courses: [],
+    ...initialData,
+    cgpa: initialData?.cgpa ?? 0,
   };
 
   const handleSubmit = async (values: Student) => {
@@ -90,7 +91,7 @@ export default function StudentFormComponent({
               <Field
                 name="name"
                 type="text"
-                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
               <ErrorMessage name="name">
                 {(msg) => (
@@ -106,7 +107,7 @@ export default function StudentFormComponent({
               <Field
                 name="email"
                 type="email"
-                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
               <ErrorMessage name="email">
                 {(msg) => (
@@ -124,7 +125,7 @@ export default function StudentFormComponent({
                 type="number"
                 min="1"
                 max="4"
-                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
               <ErrorMessage name="year">
                 {(msg) => (
@@ -145,7 +146,7 @@ export default function StudentFormComponent({
                   max="4"
                   step="0.01"
                   placeholder="0.00"
-                  className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
                 />
                 <ErrorMessage name="cgpa">
                   {(msg) => (
@@ -157,7 +158,7 @@ export default function StudentFormComponent({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Enrolled Courses
+                Enrolled Courses(optional)
               </label>
               <div className="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-3">
                 {courses.map((course) => (
