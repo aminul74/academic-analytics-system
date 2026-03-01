@@ -75,7 +75,7 @@ function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
             localStorage.removeItem("userName");
             router.push("/");
           }}
-          className="mt-auto px-3 py-2 bg-red-600 hover:bg-red-700 rounded text-white font-semibold"
+          className="mt-auto px-3 py-2 bg-red-600 hover:bg-red-700 rounded text-white font-semibold cursor-pointer"
         >
           Logout
         </button>
